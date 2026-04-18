@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <title>地球の裏側探索機</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>3D地球儀（WebGL Earth）・アンティポード計算</h1>
+        <div class="subtitle">緯度・経度から裏側の地点を求め、海か陸地かを判定します</div>
+    </header>
+
+    <aside class="panel">
+        <h2>入力</h2>
+        <div class="field">
+            <label for="lat">緯度 (−90 〜 90)</label>
+            <input id="lat" type="number" step="0.0001" placeholder="例: 48.8566 (パリ)" />
+        </div>
+        <div class="field">
+            <label for="lon">経度 (−180 〜 180)</label>
+            <input id="lon" type="number" step="0.0001" placeholder="例: 2.3522 (パリ)" />
+        </div>
+        <div class="buttons">
+            <button id="compute">裏側を計算</button>
+            <button id="reset">リセット</button>
+        </div>
+
+        <div class="field">
+            <label for="place">地名検索</label>
+            <input id="place" type="text" placeholder="例: 東京, Paris, New York" />
+            <button id="search">検索</button>
+            <ul id="results"></ul>
+        </div>
+
+
+        <div class="output" id="output">
+            <div class="out-row"><strong>入力地点:</strong> 未指定</div>
+            <div class="out-row"><strong>裏側(アンティポード):</strong> 未計算</div>
+            <div class="out-row"><strong>判定:</strong> —</div>
+            <div class="note">注: 判定は世界の陸地ポリゴン(低解像度)にもとづき、おおまかな結果です。</div>
+        </div>
+
+        <h2 style="margin-top:18px;">操作</h2>
+        <ul class="small">
+            <li>地球儀はドラッグで回転、ホイールで拡大縮小できます。</li>
+            <li>赤ピンが入力地点、青ピンが裏側地点です。</li>
+            <li>地球儀をクリックすると、その地点の緯度・経度を入力欄に反映します。</li>
+        </ul>
+    </aside>
+
+    <main>
+        <div id="globe"></div>
+    </main>
+
+    <footer>
+        タイルは OpenStreetMap を使用。陸海判定はランドポリゴン(簡易版)で近似しています。
+    </footer>
+
+    <script src="https://www.webglearth.com/v2/api.js"></script>
+    <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
